@@ -25,7 +25,8 @@ public enum RegistryType {
     CRYPTO_ACCOUNT("crypto-account", 311, CryptoAccount.class),
 
     // self-defined-type
-    ETH_SIGN_REQUEST("eth-sign-request",401, EthSignRequest.class);
+    ETH_SIGN_REQUEST("eth-sign-request",401, EthSignRequest.class),
+    ETH_SIGNATURE("eth-signature",402, EthSignature.class);
 
 
 
