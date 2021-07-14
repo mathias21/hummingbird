@@ -22,7 +22,12 @@ public enum RegistryType {
     CRYPTO_OUTPUT("crypto-output", 308, CryptoOutput.class),
     CRYPTO_SSKR("crypto-sskr", 309, null),
     CRYPTO_PSBT("crypto-psbt", 310, CryptoPSBT.class),
-    CRYPTO_ACCOUNT("crypto-account", 311, CryptoAccount.class);
+    CRYPTO_ACCOUNT("crypto-account", 311, CryptoAccount.class),
+
+    // self-defined-type
+    ETH_SIGN_REQUEST("eth-sign-request",401, EthSignRequest.class);
+
+
 
     private final String type;
     private final Integer tag;
