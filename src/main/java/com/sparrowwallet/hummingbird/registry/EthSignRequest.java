@@ -8,7 +8,8 @@ import java.math.BigInteger;
 enum DataType {
     TRANSACTION("Transaction", 1),
     TYPEDDATA("TypedData", 2),
-    RAWDATA("RawData", 3);
+    RAWDATA("RawData", 3),
+    TYPEDTRANSACION("TypedTransaction", 4);
 
     private final String type;
     private final Integer typeIndex;
