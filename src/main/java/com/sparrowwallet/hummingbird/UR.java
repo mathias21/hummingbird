@@ -27,7 +27,7 @@ public class UR {
     }
 
     public UR(String type, byte[] data) throws InvalidTypeException {
-        if(!isURType(type)) {
+        if (!isURType(type)) {
             throw new InvalidTypeException("Invalid UR type: " + type);
         }
 
@@ -54,30 +54,34 @@ public class UR {
             List<DataItem> dataItems = CborDecoder.decode(getCborBytes());
             DataItem item = dataItems.get(0);
 
-            if(registryType == RegistryType.BYTES) {
-                return ((ByteString)item).getBytes();
-            } else if(registryType == RegistryType.CRYPTO_SEED) {
+            if (registryType == RegistryType.BYTES) {
+                return ((ByteString) item).getBytes();
+            } else if (registryType == RegistryType.CRYPTO_SEED) {
                 return CryptoSeed.fromCbor(item);
-            } else if(registryType == RegistryType.CRYPTO_BIP39) {
+            } else if (registryType == RegistryType.CRYPTO_BIP39) {
                 return CryptoBip39.fromCbor(item);
-            } else if(registryType == RegistryType.CRYPTO_HDKEY) {
+            } else if (registryType == RegistryType.CRYPTO_HDKEY) {
                 return CryptoHDKey.fromCbor(item);
-            } else if(registryType == RegistryType.CRYPTO_KEYPATH) {
+            } else if (registryType == RegistryType.CRYPTO_KEYPATH) {
                 return CryptoKeypath.fromCbor(item);
-            } else if(registryType == RegistryType.CRYPTO_COIN_INFO) {
+            } else if (registryType == RegistryType.CRYPTO_COIN_INFO) {
                 return CryptoCoinInfo.fromCbor(item);
-            } else if(registryType == RegistryType.CRYPTO_ECKEY) {
+            } else if (registryType == RegistryType.CRYPTO_ECKEY) {
                 return CryptoECKey.fromCbor(item);
-            } else if(registryType == RegistryType.CRYPTO_ADDRESS) {
+            } else if (registryType == RegistryType.CRYPTO_ADDRESS) {
                 return CryptoAddress.fromCbor(item);
-            } else if(registryType == RegistryType.CRYPTO_OUTPUT) {
+            } else if (registryType == RegistryType.CRYPTO_OUTPUT) {
                 return CryptoOutput.fromCbor(item);
-            } else if(registryType == RegistryType.CRYPTO_PSBT) {
+            } else if (registryType == RegistryType.CRYPTO_PSBT) {
                 return CryptoPSBT.fromCbor(item);
-            } else if(registryType == RegistryType.CRYPTO_ACCOUNT) {
+            } else if (registryType == RegistryType.CRYPTO_ACCOUNT) {
                 return CryptoAccount.fromCbor(item);
+            } else if (registryType == RegistryType.ETH_SIGN_REQUEST) {
+                return EthSignRequest.fromCbor(item);
+            } else if (registryType == RegistryType.ETH_SIGNATURE) {
+                return EthSignature.fromCbor(item);
             }
-        } catch(CborException e) {
+        } catch (CborException e) {
             throw new InvalidCBORException(e.getMessage());
         }
 
@@ -87,25 +91,25 @@ public class UR {
     public byte[] toBytes() throws InvalidCBORException {
         try {
             List<DataItem> dataItems = CborDecoder.decode(getCborBytes());
-            if(!(dataItems.get(0) instanceof ByteString)) {
+            if (!(dataItems.get(0) instanceof ByteString)) {
                 throw new IllegalArgumentException("First element of CBOR is not a byte string");
             }
 
-            return ((ByteString)dataItems.get(0)).getBytes();
-        } catch(CborException e) {
+            return ((ByteString) dataItems.get(0)).getBytes();
+        } catch (CborException e) {
             throw new InvalidCBORException(e.getMessage());
         }
     }
 
     public static boolean isURType(String type) {
-        for(char c : type.toCharArray()) {
-            if('a' <= c && c <= 'z') {
+        for (char c : type.toCharArray()) {
+            if ('a' <= c && c <= 'z') {
                 return true;
             }
-            if('0' <= c && c <= '9') {
+            if ('0' <= c && c <= '9') {
                 return true;
             }
-            if(c == '-') {
+            if (c == '-') {
                 return true;
             }
         }
@@ -126,7 +130,7 @@ public class UR {
             byte[] cbor = baos.toByteArray();
 
             return new UR(type, cbor);
-        } catch(CborException e) {
+        } catch (CborException e) {
             throw new InvalidCBORException(e.getMessage());
         }
     }
@@ -137,10 +141,10 @@ public class UR {
 
     @Override
     public boolean equals(Object o) {
-        if(this == o) {
+        if (this == o) {
             return true;
         }
-        if(o == null || getClass() != o.getClass()) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
         UR ur = (UR) o;

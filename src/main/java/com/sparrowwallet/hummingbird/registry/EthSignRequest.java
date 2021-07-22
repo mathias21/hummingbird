@@ -107,6 +107,10 @@ public class EthSignRequest extends RegistryItem {
         return derivationPath.getPath();
     }
 
+    public byte[] getMasterFingerprint() {
+        return derivationPath.getSourceFingerprint();
+    }
+
     public byte[] getAddress() {
         return address;
     }
