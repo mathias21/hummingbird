@@ -1,50 +1,6 @@
 package com.sparrowwallet.hummingbird.registry;
 
 import co.nstant.in.cbor.model.*;
-import co.nstant.in.cbor.model.Number;
-
-import java.math.BigInteger;
-
-enum DataType {
-    TRANSACTION("Transaction", 1),
-    TYPED_DATA("TypedData", 2),
-    PERSONAL_MESSAGE("PersonalMessage", 3),
-    TYPED_TRANSACTION("TypedTransaction", 4);
-
-    private final String type;
-    private final Integer typeIndex;
-
-    private DataType(String type, Integer typeIndex) {
-        this.type = type;
-        this.typeIndex = typeIndex;
-
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public Integer getTypeIndex() {
-        return typeIndex;
-    }
-
-
-    @Override
-    public String toString() {
-        return type;
-    }
-
-    public static DataType fromInteger(Integer typeIndex) {
-        for(DataType dataType : values()) {
-            if(dataType.getTypeIndex().equals(typeIndex)) {
-                return dataType;
-            }
-        }
-
-        throw new IllegalArgumentException("Unknown eth data type: " + typeIndex);
-    }
-}
-
 
 
 public class EthSignRequest extends RegistryItem {
@@ -188,4 +144,43 @@ public class EthSignRequest extends RegistryItem {
         }
     }
 
+    public enum DataType {
+        TRANSACTION("Transaction", 1),
+        TYPED_DATA("TypedData", 2),
+        PERSONAL_MESSAGE("PersonalMessage", 3),
+        TYPED_TRANSACTION("TypedTransaction", 4);
+
+        private final String type;
+        private final Integer typeIndex;
+
+        private DataType(String type, Integer typeIndex) {
+            this.type = type;
+            this.typeIndex = typeIndex;
+
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public Integer getTypeIndex() {
+            return typeIndex;
+        }
+
+
+        @Override
+        public String toString() {
+            return type;
+        }
+
+        public static DataType fromInteger(Integer typeIndex) {
+            for(DataType dataType : DataType.values()) {
+                if(dataType.getTypeIndex().equals(typeIndex)) {
+                    return dataType;
+                }
+            }
+
+            throw new IllegalArgumentException("Unknown eth data type: " + typeIndex);
+        }
+    }
 }
