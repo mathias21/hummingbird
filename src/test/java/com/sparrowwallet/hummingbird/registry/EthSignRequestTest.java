@@ -10,7 +10,6 @@ import com.sparrowwallet.hummingbird.TestUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class EthSignRequestTest {
@@ -33,7 +32,7 @@ public class EthSignRequestTest {
         components.add(new PathComponent(1, false));
         CryptoKeypath keyPath = new CryptoKeypath(components, null, null);
 
-        EthSignRequest ethSignRequest = new EthSignRequest(signData, DataType.TRANSACTION.getTypeIndex(), 1, keyPath ,uuidBytes);
+        EthSignRequest ethSignRequest = new EthSignRequest(signData, EthSignRequest.DataType.TRANSACTION.getTypeIndex(), 1, keyPath ,uuidBytes);
 
         List<DataItem> items = CborDecoder.decode(TestUtils.hexToBytes(TestUtils.encode(ethSignRequest.toCbor())));
         EthSignRequest originRequest = EthSignRequest.fromCbor(items.get(0));
