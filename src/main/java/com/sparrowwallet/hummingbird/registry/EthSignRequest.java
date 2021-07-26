@@ -129,7 +129,7 @@ public class EthSignRequest extends RegistryItem {
             }
         }
 
-        if(signData == null || dataTypeIndex == null || chainId == null | derivationPath == null) {
+        if(signData == null || dataTypeIndex == null || derivationPath == null) {
             throw new IllegalStateException("required data field is missing");
         }
 
