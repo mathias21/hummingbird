@@ -27,7 +27,7 @@ public enum RegistryType {
     // self-defined-type
     ETH_SIGN_REQUEST("eth-sign-request",401, EthSignRequest.class),
     ETH_SIGNATURE("eth-signature",402, EthSignature.class),
-    ETH_NFT_ITEM("eth-nft-item",403, ETHNFTItem.class);
+    ETH_NFT_ITEM("eth-nft-item",403, EthNFTItem.class);
 
 
 

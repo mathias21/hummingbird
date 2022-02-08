@@ -5,7 +5,7 @@ import co.nstant.in.cbor.model.Map;
 import co.nstant.in.cbor.model.UnicodeString;
 import co.nstant.in.cbor.model.UnsignedInteger;
 
-public class ETHNFTItem extends RegistryItem {
+public class EthNFTItem extends RegistryItem {
     public static final int CHAIN_ID = 1;
     public static final int CONTRACT_ADDRESS = 2;
     public static final int NAME = 3;
@@ -16,7 +16,7 @@ public class ETHNFTItem extends RegistryItem {
     private final String contractAddress;
     private final String mediaData;
 
-    public ETHNFTItem(int chainId, String name, String contractAddress, String mediaData) {
+    public EthNFTItem(int chainId, String name, String contractAddress, String mediaData) {
         this.chainId = chainId;
         this.name = name;
         this.contractAddress = contractAddress;
@@ -54,7 +54,7 @@ public class ETHNFTItem extends RegistryItem {
         return RegistryType.ETH_NFT_ITEM;
     }
 
-    public static ETHNFTItem fromCbor(DataItem item) {
+    public static EthNFTItem fromCbor(DataItem item) {
         Integer chainId = null;
         String name = null;
         String contractAddress = null;
@@ -77,6 +77,6 @@ public class ETHNFTItem extends RegistryItem {
         if(chainId == null || name == null || contractAddress == null || mediaData == null) {
             throw new IllegalStateException("required data field is missing");
         }
-        return new ETHNFTItem(chainId, name, contractAddress, mediaData);
+        return new EthNFTItem(chainId, name, contractAddress, mediaData);
     }
 }

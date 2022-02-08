@@ -80,6 +80,8 @@ public class UR {
                 return EthSignRequest.fromCbor(item);
             } else if (registryType == RegistryType.ETH_SIGNATURE) {
                 return EthSignature.fromCbor(item);
+            } else if (registryType == RegistryType.ETH_NFT_ITEM) {
+                return EthNFTItem.fromCbor(item);
             }
         } catch (CborException e) {
             throw new InvalidCBORException(e.getMessage());
