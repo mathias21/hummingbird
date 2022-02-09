@@ -8,17 +8,20 @@ import co.nstant.in.cbor.model.UnsignedInteger;
 public class EthNFTItem extends RegistryItem {
     public static final int CHAIN_ID = 1;
     public static final int CONTRACT_ADDRESS = 2;
-    public static final int NAME = 3;
-    public static final int MEDIA_DATA = 4;
+    public static final int CONTRACT_NAME = 3;
+    public static final int NAME = 4;
+    public static final int MEDIA_DATA = 5;
 
     private final int chainId;
     private final String name;
+    private final String contractName;
     private final String contractAddress;
     private final String mediaData;
 
-    public EthNFTItem(int chainId, String name, String contractAddress, String mediaData) {
+    public EthNFTItem(int chainId, String name, String contractName, String contractAddress, String mediaData) {
         this.chainId = chainId;
         this.name = name;
+        this.contractName = contractName;
         this.contractAddress = contractAddress;
         this.mediaData = mediaData;
     }
@@ -44,6 +47,7 @@ public class EthNFTItem extends RegistryItem {
         Map map = new Map();
         map.put(new UnsignedInteger(CHAIN_ID), new UnsignedInteger(chainId));
         map.put(new UnsignedInteger(CONTRACT_ADDRESS), new UnicodeString(contractAddress));
+        map.put(new UnsignedInteger(CONTRACT_NAME), new UnicodeString(contractName));
         map.put(new UnsignedInteger(NAME), new UnicodeString(name));
         map.put(new UnsignedInteger(MEDIA_DATA), new UnicodeString(mediaData));
         return map;
@@ -58,6 +62,7 @@ public class EthNFTItem extends RegistryItem {
         Integer chainId = null;
         String name = null;
         String contractAddress = null;
+        String contractName = null;
         String mediaData = null;
 
         Map map = (Map)item;
@@ -68,6 +73,8 @@ public class EthNFTItem extends RegistryItem {
                 chainId = ((UnsignedInteger) map.get(uintKey)).getValue().intValue();
             } else if (intKey == CONTRACT_ADDRESS) {
                 contractAddress = ((UnicodeString) map.get(uintKey)).getString();
+            } else if (intKey == CONTRACT_NAME) {
+                contractName = ((UnicodeString) map.get(uintKey)).getString();
             } else if (intKey == NAME) {
                 name = ((UnicodeString) map.get(uintKey)).getString();
             } else if (intKey == MEDIA_DATA) {
@@ -77,6 +84,6 @@ public class EthNFTItem extends RegistryItem {
         if(chainId == null || name == null || contractAddress == null || mediaData == null) {
             throw new IllegalStateException("required data field is missing");
         }
-        return new EthNFTItem(chainId, name, contractAddress, mediaData);
+        return new EthNFTItem(chainId, name, contractName, contractAddress, mediaData);
     }
 }
