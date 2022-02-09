@@ -42,6 +42,10 @@ public class EthNFTItem extends RegistryItem {
         return mediaData;
     }
 
+    public String getContractName() {
+        return contractName;
+    }
+
     @Override
     public DataItem toCbor() {
         Map map = new Map();
