@@ -1,5 +1,7 @@
 package com.sparrowwallet.hummingbird.registry;
 
+import com.sparrowwallet.hummingbird.registry.solana.SolSignRequest;
+
 public enum RegistryType {
     BYTES("bytes", null, byte[].class),
     CBOR_PNG("cbor-png", null, null),
@@ -27,8 +29,9 @@ public enum RegistryType {
     // self-defined-type
     ETH_SIGN_REQUEST("eth-sign-request",401, EthSignRequest.class),
     ETH_SIGNATURE("eth-signature",402, EthSignature.class),
-    ETH_NFT_ITEM("eth-nft-item",403, EthNFTItem.class);
+    ETH_NFT_ITEM("eth-nft-item",403, EthNFTItem.class),
 
+    SOL_SIGN_REQUEST("sol-sign-request", 1101, SolSignRequest.class);
 
 
     private final String type;
