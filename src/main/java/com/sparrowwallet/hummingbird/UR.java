@@ -7,7 +7,9 @@ import co.nstant.in.cbor.CborException;
 import co.nstant.in.cbor.model.ByteString;
 import co.nstant.in.cbor.model.DataItem;
 import com.sparrowwallet.hummingbird.registry.*;
+import com.sparrowwallet.hummingbird.registry.solana.CryptoMultiAccounts;
 import com.sparrowwallet.hummingbird.registry.solana.SolSignRequest;
+import com.sparrowwallet.hummingbird.registry.solana.SolSignature;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
@@ -85,6 +87,10 @@ public class UR {
                 return EthNFTItem.fromCbor(item);
             } else if (registryType == RegistryType.SOL_SIGN_REQUEST) {
                 return SolSignRequest.fromCbor(item);
+            } else if (registryType == RegistryType.SOL_SIGNATURE) {
+                return SolSignature.fromCbor(item);
+            } else if (registryType == RegistryType.CRYPTO_MULTI_ACCOUNTS) {
+                return CryptoMultiAccounts.fromCbor(item);
             }
         } catch (CborException e) {
             throw new InvalidCBORException(e.getMessage());

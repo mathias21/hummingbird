@@ -1,6 +1,8 @@
 package com.sparrowwallet.hummingbird.registry;
 
+import com.sparrowwallet.hummingbird.registry.solana.CryptoMultiAccounts;
 import com.sparrowwallet.hummingbird.registry.solana.SolSignRequest;
+import com.sparrowwallet.hummingbird.registry.solana.SolSignature;
 
 public enum RegistryType {
     BYTES("bytes", null, byte[].class),
@@ -31,7 +33,9 @@ public enum RegistryType {
     ETH_SIGNATURE("eth-signature",402, EthSignature.class),
     ETH_NFT_ITEM("eth-nft-item",403, EthNFTItem.class),
 
-    SOL_SIGN_REQUEST("sol-sign-request", 1101, SolSignRequest.class);
+    SOL_SIGN_REQUEST("sol-sign-request", 1101, SolSignRequest.class),
+    SOL_SIGNATURE("sol-signature", 1102, SolSignature.class),
+    CRYPTO_MULTI_ACCOUNTS("crypto-multi-accounts", 1103, CryptoMultiAccounts.class);
 
 
     private final String type;
