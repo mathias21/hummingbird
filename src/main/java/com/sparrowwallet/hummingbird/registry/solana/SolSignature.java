@@ -35,7 +35,7 @@ public class SolSignature extends RegistryItem {
 
     @Override
     public RegistryType getRegistryType() {
-        return RegistryType.ETH_SIGNATURE;
+        return RegistryType.SOL_SIGNATURE;
     }
 
     @Override
