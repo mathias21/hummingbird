@@ -55,7 +55,9 @@ public class CryptoMultiAccounts extends RegistryItem {
         map.put(new UnsignedInteger(MASTER_FINGERPRINT), new UnsignedInteger(new BigInteger(1, masterFingerprint)));
         Array array = new Array();
         for (CryptoHDKey cryptoHDKey : keys) {
-            array.add(cryptoHDKey.toCbor());
+            DataItem x = cryptoHDKey.toCbor();
+            x.setTag(cryptoHDKey.getRegistryType().getTag());
+            array.add(x);
         }
         map.put(new UnsignedInteger(KEYS), array);
         if (origin != null) {
