@@ -80,6 +80,10 @@ public class SolSignRequest extends RegistryItem {
         return origin;
     }
 
+    public DataType getType() {
+        return type;
+    }
+
     @Override
     public RegistryType getRegistryType() {
         return RegistryType.SOL_SIGN_REQUEST;
