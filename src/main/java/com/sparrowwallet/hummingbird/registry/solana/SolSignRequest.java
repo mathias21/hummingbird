@@ -137,7 +137,7 @@ public class SolSignRequest extends RegistryItem {
             }
         }
 
-        if (signData == null || derivationPath == null) {
+        if (signData == null || derivationPath == null || dataTypeIndex == null) {
             throw new IllegalStateException("required data field is missing");
         }
 
