@@ -8,6 +8,7 @@ import co.nstant.in.cbor.model.ByteString;
 import co.nstant.in.cbor.model.DataItem;
 import com.sparrowwallet.hummingbird.registry.*;
 import com.sparrowwallet.hummingbird.registry.solana.CryptoMultiAccounts;
+import com.sparrowwallet.hummingbird.registry.solana.SolNFTItem;
 import com.sparrowwallet.hummingbird.registry.solana.SolSignRequest;
 import com.sparrowwallet.hummingbird.registry.solana.SolSignature;
 
@@ -91,6 +92,8 @@ public class UR {
                 return SolSignature.fromCbor(item);
             } else if (registryType == RegistryType.CRYPTO_MULTI_ACCOUNTS) {
                 return CryptoMultiAccounts.fromCbor(item);
+            } else if (registryType == RegistryType.SOL_NFT_ITEM) {
+                return SolNFTItem.fromCbor(item);
             }
         } catch (CborException e) {
             throw new InvalidCBORException(e.getMessage());
