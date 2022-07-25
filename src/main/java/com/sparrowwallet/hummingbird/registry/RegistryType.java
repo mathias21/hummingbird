@@ -1,5 +1,6 @@
 package com.sparrowwallet.hummingbird.registry;
 
+import com.sparrowwallet.hummingbird.registry.near.NearSignRequest;
 import com.sparrowwallet.hummingbird.registry.solana.CryptoMultiAccounts;
 import com.sparrowwallet.hummingbird.registry.solana.SolNFTItem;
 import com.sparrowwallet.hummingbird.registry.solana.SolSignRequest;
@@ -37,8 +38,10 @@ public enum RegistryType {
     SOL_SIGN_REQUEST("sol-sign-request", 1101, SolSignRequest.class),
     SOL_SIGNATURE("sol-signature", 1102, SolSignature.class),
     CRYPTO_MULTI_ACCOUNTS("crypto-multi-accounts", 1103, CryptoMultiAccounts.class),
-    SOL_NFT_ITEM("sol-nft-item",1104, SolNFTItem.class);
+    SOL_NFT_ITEM("sol-nft-item",1104, SolNFTItem.class),
 
+    NEAR_SIGN_REQUEST("near-sign-request", 2101, NearSignRequest.class),
+    NEAR_SIGNATURE("near-signature", 2102, SolSignature.class);
 
     private final String type;
     private final Integer tag;
