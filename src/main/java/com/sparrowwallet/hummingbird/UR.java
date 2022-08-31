@@ -7,6 +7,8 @@ import co.nstant.in.cbor.CborException;
 import co.nstant.in.cbor.model.ByteString;
 import co.nstant.in.cbor.model.DataItem;
 import com.sparrowwallet.hummingbird.registry.*;
+import com.sparrowwallet.hummingbird.registry.aptos.AptosSignRequest;
+import com.sparrowwallet.hummingbird.registry.aptos.AptosSignature;
 import com.sparrowwallet.hummingbird.registry.near.NearSignRequest;
 import com.sparrowwallet.hummingbird.registry.near.NearSignature;
 import com.sparrowwallet.hummingbird.registry.CryptoMultiAccounts;
@@ -100,6 +102,10 @@ public class UR {
                 return NearSignRequest.fromCbor(item);
             } else if (registryType == RegistryType.NEAR_SIGNATURE) {
                 return NearSignature.fromCbor(item);
+            } else if (registryType == RegistryType.APTOS_SIGN_REQUEST) {
+                return AptosSignRequest.fromCbor(item);
+            } else if (registryType == RegistryType.APTOS_SIGNATURE) {
+                return AptosSignature.fromCbor(item);
             }
         } catch (CborException e) {
             throw new InvalidCBORException(e.getMessage());

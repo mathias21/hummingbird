@@ -5,6 +5,7 @@ import com.sparrowwallet.hummingbird.registry.RegistryItem;
 import com.sparrowwallet.hummingbird.registry.RegistryType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import co.nstant.in.cbor.model.Array;
@@ -25,7 +26,7 @@ public class AptosSignRequest extends RegistryItem {
     private final byte[] requestId;
     private final byte[] signData;
     private final List<CryptoKeypath> authenticationKeyDerivationPaths;
-    private final String account;
+    private final List<byte[]> accounts;
     private final String origin;
     private DataType type;
 
@@ -34,7 +35,7 @@ public class AptosSignRequest extends RegistryItem {
         this.requestId = null;
         this.signData = signData;
         this.authenticationKeyDerivationPaths = authenticationKeyDerivationPaths;
-        this.account = null;
+        this.accounts = null;
         this.origin = null;
         this.type = DataType.fromInteger(type);
     }
@@ -44,17 +45,17 @@ public class AptosSignRequest extends RegistryItem {
         this.requestId = requestId;
         this.signData = signData;
         this.authenticationKeyDerivationPaths = authenticationKeyDerivationPaths;
-        this.account = null;
+        this.accounts = null;
         this.origin = null;
         this.type = DataType.fromInteger(type);
     }
 
 
-    public AptosSignRequest(byte[] signData, List<CryptoKeypath> authenticationKeyDerivationPaths, byte[] requestId, String account, String origin, Integer type) {
+    public AptosSignRequest(byte[] signData, List<CryptoKeypath> authenticationKeyDerivationPaths, byte[] requestId, List<byte[]> accounts, String origin, Integer type) {
         this.requestId = requestId;
         this.signData = signData;
         this.authenticationKeyDerivationPaths = authenticationKeyDerivationPaths;
-        this.account = account;
+        this.accounts = accounts;
         this.origin = origin;
         this.type = DataType.fromInteger(type);
     }
@@ -84,8 +85,8 @@ public class AptosSignRequest extends RegistryItem {
     }
 
 
-    public String getAccount() {
-        return account;
+    public List<byte[]> getAccounts() {
+        return accounts;
     }
 
     public String getOrigin() {
@@ -110,8 +111,13 @@ public class AptosSignRequest extends RegistryItem {
             map.put(new UnsignedInteger(REQUEST_ID), uuid);
         }
 
-        if (account != null) {
-            map.put(new UnsignedInteger(ACCOUNT), new UnicodeString(account));
+        if (accounts != null) {
+            Array array = new Array();
+            for (byte[] signData : accounts) {
+                DataItem x = new ByteString(signData);
+                array.add(x);
+            }
+            map.put(new UnsignedInteger(ACCOUNT), array);
         }
 
         if (origin != null) {
@@ -132,11 +138,23 @@ public class AptosSignRequest extends RegistryItem {
         return map;
     }
 
+    @Override
+    public String toString() {
+        return "AptosSignRequest{" +
+                "requestId=" + Arrays.toString(requestId) +
+                ", signData=" + Arrays.toString(signData) +
+                ", authenticationKeyDerivationPaths=" + authenticationKeyDerivationPaths +
+                ", account='" + accounts + '\'' +
+                ", origin='" + origin + '\'' +
+                ", type=" + type +
+                '}';
+    }
+
     public static AptosSignRequest fromCbor(DataItem item) {
         byte[] requestId = null;
         byte[] signData = null;
         List<CryptoKeypath> authenticationKeyDerivationPaths = null;
-        String account = null;
+        List<byte[]> accountList = null;
         String origin = null;
         Integer dataTypeIndex = null;
 
@@ -155,7 +173,11 @@ public class AptosSignRequest extends RegistryItem {
                     authenticationKeyDerivationPaths.add(CryptoKeypath.fromCbor(derivationPath));
                 }
             } else if (intKey == ACCOUNT) {
-                account = ((UnicodeString) map.get(uintKey)).getString();
+                Array accountArray = (Array) map.get(uintKey);
+                accountList = new ArrayList<>(accountArray.getDataItems().size());
+                for (DataItem account : accountArray.getDataItems()) {
+                    accountList.add(((ByteString) account).getBytes());
+                }
             } else if (intKey == ORIGIN) {
                 origin = ((UnicodeString) map.get(uintKey)).getString();
             } else if (intKey == TYPE) {
@@ -165,7 +187,7 @@ public class AptosSignRequest extends RegistryItem {
         if (signData == null || authenticationKeyDerivationPaths == null || dataTypeIndex == null) {
             throw new IllegalStateException("required data field is missing");
         }
-        return new AptosSignRequest(signData, authenticationKeyDerivationPaths, requestId, account, origin, dataTypeIndex);
+        return new AptosSignRequest(signData, authenticationKeyDerivationPaths, requestId, accountList, origin, dataTypeIndex);
     }
 
     public enum DataType {
