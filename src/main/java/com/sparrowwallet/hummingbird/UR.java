@@ -7,7 +7,12 @@ import co.nstant.in.cbor.CborException;
 import co.nstant.in.cbor.model.ByteString;
 import co.nstant.in.cbor.model.DataItem;
 import com.sparrowwallet.hummingbird.registry.*;
-import com.sparrowwallet.hummingbird.registry.solana.CryptoMultiAccounts;
+import com.sparrowwallet.hummingbird.registry.aptos.AptosSignRequest;
+import com.sparrowwallet.hummingbird.registry.aptos.AptosSignature;
+import com.sparrowwallet.hummingbird.registry.near.NearSignRequest;
+import com.sparrowwallet.hummingbird.registry.near.NearSignature;
+import com.sparrowwallet.hummingbird.registry.CryptoMultiAccounts;
+import com.sparrowwallet.hummingbird.registry.solana.SolNFTItem;
 import com.sparrowwallet.hummingbird.registry.solana.SolSignRequest;
 import com.sparrowwallet.hummingbird.registry.solana.SolSignature;
 
@@ -91,6 +96,16 @@ public class UR {
                 return SolSignature.fromCbor(item);
             } else if (registryType == RegistryType.CRYPTO_MULTI_ACCOUNTS) {
                 return CryptoMultiAccounts.fromCbor(item);
+            } else if (registryType == RegistryType.SOL_NFT_ITEM) {
+                return SolNFTItem.fromCbor(item);
+            } else if (registryType == RegistryType.NEAR_SIGN_REQUEST) {
+                return NearSignRequest.fromCbor(item);
+            } else if (registryType == RegistryType.NEAR_SIGNATURE) {
+                return NearSignature.fromCbor(item);
+            } else if (registryType == RegistryType.APTOS_SIGN_REQUEST) {
+                return AptosSignRequest.fromCbor(item);
+            } else if (registryType == RegistryType.APTOS_SIGNATURE) {
+                return AptosSignature.fromCbor(item);
             }
         } catch (CborException e) {
             throw new InvalidCBORException(e.getMessage());
